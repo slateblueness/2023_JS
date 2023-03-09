@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* 타이머 함수: 타이머 함수 안에 넣어 준 함수를 시간에 따라 */
+        let timerID = setTimeout(function(){
+            document.write(`<p>1초가 지났습니다</p>`);
+        }, 1000);
+
+        // 타이머 함수 뒤에 작성된 내용은 바로 실행됨
+        document.write(`setTimeout 다음에 작성된 내용입니다`)
+
+        // 1초가 지났습니다 라고 출력하는 타이머 함수 중지시키기
+        clearTimeout(timerID)
+    </script>
+</body>
+</html>
