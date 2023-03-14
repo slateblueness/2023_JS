@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* BOM: 브라우저 오브젝트 모델(브라우저 객체 모델) */
+        // 브라우저(인터넷 창)에 접근해서 자바스크립트로 제어하기 위한 모델
+        // 가장 상위 객체: window -> 대부분 접두사를 제외하고 사용
+        // 현재 script의 객체가 window이기 때문에 this로 접근도 가능
+        // document도 window 안에 속한 객체
+
+        // location 객체
+        // 현재 웹 페이지에 대한 정보를 가지고 있는 객체
+        // .reload()를 사용하면 페이지가 새로고침 된다
+        document.write(`<p>${location}</p>`);
+
+        // history 객체
+        // 웹 페이지의 히스토리 정보를 저장하고 있음
+        // length: 히스토리의 개수 확인
+        // .back(), .forward(), .go() 메서드: 페이지 이동 기능
+
+        // 대화상자: window 객체에서 제공해 주는 메서드
+        let choice = confirm(`선택해 주세요`);
+        document.write(`<p>${choice}</p>`);
+    </script>
+</body>
+</html>

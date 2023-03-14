@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let platform = confirm(`운영체제를 알려 드릴까요?`);
+        if(platform){
+            document.write(`<p>${navigator.platform}</p>`);
+        }
+
+        // 함수와 메서드를 사용할 때 return값을 다시 함수의 인수값으로 넣어서 사용 가능
+        // 함수 안에 실행함수를 호출해서 사용 가능
+        // 변수에 담지 않고 바로 return값 사용 가능
+        if(confirm(`운영체제를 알려 드릴까요?`)){
+            document.write(`<p>${navigator.platform}</p>`);
+        }
+    </script>
+</body>
+</html>
