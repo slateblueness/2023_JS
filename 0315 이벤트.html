@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- HTML 태그에서 어떤 이벤트가 발생 -->
+    <!-- onclick : 태그를 클릭했을 때 실행 -->
+    <h1 onclick="printConsole('h1')">이벤트</h1>
+    <button onclick="alert('버튼을 클릭했습니다')">클릭하세요</button>
+    <p onmouseenter="printConsole('p')">마우스를 올리세요</p>
+
+    <!-- 요소에 속성으로 등록 실습1 -->
+    <p>값을 넣어주세요</p>
+    <!-- input태그를 가져와서 value값 가져오기 -->
+    <input id="input" type="text" value="값" size="10" placeholder="값 입력">
+    <!-- button에 클릭 이벤트와 함수 작성 -->
+    <button onclick="printP()">확인</button>
+    <!-- p태그를 가져와서 값 넣어주기 -->
+    <p id="textprint"></p>
+
+    <!-- input 태그에 onfouse, onblur -->
+    <input type="text" id="input2" onblur="inputColor()" onfocus="inputColor2()"> 
+    <button>확인</button>
+
+    <!-- JS에 DOM으로 들고와서 메소드로 이벤트 추가 -->
+    <button id="btn">메소드로 이벤트를 추가</button>
+    <!-- -->
+    <p id="p2">마우스를 올리면 빨간색으로 바뀌는 이벤트를 추가</p>
+    <ul id="ulList">
+        <li>첫 번째</li>
+        <li>두 번째</li>
+        <li>세 번째</li>
+        <li>네 번째</li>
+    </ul>
+
+    <!-- 이벤트 객체를 사용하기 위한 태그 -->
+    <p onclick="printText()">태그를 클릭하면 글자가 바뀝니다</p>
+    <!-- 동일한 이벤트와 함수를 연결 -->
+    <p id="p3">태그를 클릭하면 글자가 바뀝니다</p>
+
+    <!-- p태그에 addEventListener를 통해 이벤트 2개 작성 -->
+    <!-- 사용할 이벤트: click, dbclick -->
+    <!-- function changeColor(e){} 이벤트 객체 사용 -->
+    <!-- 이벤트 객체를 통해서 이벤트 타입을 구분 -->
+    <p id="p4">
+        태그를 클릭하면 글자가 파란색으로 바뀌고,
+        태그를 더블클릭하면 백그라운드가 회색으로 바뀐다.
+    </p>
+
+    <!-- h3태그를 생성하여 미리 만들어 둔 changeColor 사용 -->
+    <h3 id="h3">
+        이벤트 객체를 사용하면 동일한 함수를 다른 태그에 사용 가능
+    </h3>
+
+    <!-- changeColor 클릭/더블클릭했을 때 함수 실행 -->
+    <ul id="ulList2">
+        <li>이벤트가 적용된 태그입니다</li>
+        <li>이벤트가 적용된 태그입니다</li>
+        <li>이벤트가 적용된 태그입니다</li>
+        <li>이벤트가 적용된 태그입니다</li>
+        <li>이벤트가 적용된 태그입니다</li>
+    </ul>
+    
+    <!-- 이벤트 리스너를 통해 함수를 전달할 때, 함수의 인수값을 직접 전달 -->
+    <!-- 각 DOM의 innerHTML값을 함수의 인수값으로 넣어 줌 -->
+    <!-- 클릭 이벤트가 발생했을 때, innerHTML값이 바뀌는 함수 -->
+    <p id="p5">5번째 태그</p>
+    <p id="p6">6번째 태그</p>
+    <p id="p7">7번째 태그</p>
+
+    <script>
+        /* HTML태그에서 이벤트가 발생했을때 실행할 내용 작성*/
+        // 함수로 만들어서 onclick이벤트에 전달
+        function printConsole(tag) {
+            console.log(tag+"를 눌렀습니다");
+        }
+        // 함수로 작성
+        function printP() {
+            // input태그 가져오기
+            let input = document.querySelector("#input");
+            // p태그 가져오기
+            let p = document.querySelector("#textprint");
+            // p태그의 innerHTML값을 input.value로 할당
+            p.innerHTML = input.value;
+
+            // p태그의 글자색 바꾸기
+            // 속성값에 직접 접근하여 바꿀 때는 = 으로 할당
+            p.style.color = "blue";
+            // 속성에 있는 값을 가져올 수 있다
+            console.log(p.style.color);
+            
+            // p태그의 이전 형제태그(button)에 접근해서
+            // button의 style의 color를 red로 바꾸기
+            let button = p.previousElementSibling;
+
+            // 버튼을 클릭했을 때
+            // 버튼의 글자 색이 검정이라면 빨강
+            // 이때, 글자 색이 빨강이라면 검정
+            if (button.style.color == "red") {
+                button.style.color = "";
+            } else {
+                button.style.color = "red";
+            }
+        }
+
+        // onblur() - inputColor()
+        function inputColor() {
+            let input = document.querySelector("#input2");
+            input.style.backgroundColor = "";
+        }
+        function inputColor2() {
+            let input = document.querySelector("#input2");
+            input.style.backgroundColor = "gray";
+        }
+
+        /* HTML에서 태그를 DOM요소 들고와서 메소드로 이벤트 추가 */
+        let btn = document.querySelector("#btn");
+        // 가져온 DOM요소에 이벤트와 실행할 함수
+        btn.addEventListener("click", printButton);
+        // 가져온 DOM요소에 이벤트와 실행할 익명함수
+        btn.addEventListener("mouseenter", 
+            function(){
+                btn.innerHTML="마우스를 올렸습니다"
+        });
+
+        // 실행할 함수 작성
+        function printButton(){
+            btn.innerHTML = "버튼을 눌렀습니다"
+        }
+
+        // let과 달리 const로 작성한 변수는 그 값을 재할당할 수 없음 → 유일한 값으로 볼 수 있음
+        const p2 = document.querySelector('#p2');
+        p2.addEventListener("mouseenter", function(e){
+            p2.style.color = "red";
+            console.log(e)
+            // 이벤트 객체를 들고 와서 백그라운드 컬러 gray로 변경
+            e.target.style.backgroundColor = "gray";
+        });
+
+        // li와 같이 여러 개의 태그에 같은 이벤트 추가하기
+        // 배열(querySelectorAll)로 가지고 와서 for문 사용
+        const liList = document.querySelectorAll('#ulList>li');
+        for(let i=0; i<liList.length; i++){
+            liList[i].addEventListener('click', function(){
+                // 랜덤하게 색이 변경되도록 생성
+                // 색 변경: style.color 옵션 사용
+                // 랜덤(무작위): Math.random() 사용, 해당 함수의 특징: 0~1 소수의 난수 사용
+                // Math.random() 함수를 사용하여 색상 표기하는 방법: 0~255 사이의 값이 필요 → Math.random()*256(정수값만 필요)
+                // Math.random*256의 결과값은 정수X, 정수로 사용하기 위해 Math.floor() 함수 사용
+                let r = Math.floor(Math.random()*256);
+                let g = Math.floor(Math.random()*256);
+                let b = Math.floor(Math.random()*256);
+                // floor함수가 먼저 나온 이유: 함수는 가장 안쪽에 있는 것부터 실행되기 때문
+                liList[i].style.color = `rgb(${r}, ${g}, ${b})`;
+            })
+        }
+
+        /* 이벤트 객체를 활용한 함수 작성 */
+        let p3 = document.querySelector('#p3');
+        // 이벤트 객체는 이벤트 리스너가 전달
+        // html 속성에서는 이벤트 객체X → undefind
+        p3.addEventListener("click", printText);
+        function printText(e){
+            e.target.innerHTML = "값이 바뀝니다";
+            console.dir(e)
+        }
+
+        // p4를 가지고 와서 이벤트와 함수 작성
+        let p4 = document.querySelector('#p4');
+        p4.addEventListener("click", changeColor);
+        p4.addEventListener("dblclick", changeColor);
+
+        // 사용할 함수
+        function changeColor(e){
+            // 이벤트에 따라서 사용할 함수를 구분
+            if(e.type == "click"){
+                e.target.style.color = "blue";
+            } else if(e.type == "dblclick"){
+                e.target.style.backgroundColor = "gray";
+            }
+        }
+
+        // h3태그에 미리 만들어 둔 함수를 적용
+        let h3 = document.querySelector("h3");
+        h3.addEventListener("click", changeColor);
+        h3.addEventListener("dblclick", changeColor);
+
+        // ulList2의 li태그 배열을 들고 와서 이벤트 추가
+        const ulList2 = document.querySelectorAll("#ulList2>li");
+        for(let i=0; i<ulList2.length; i++){
+            ulList2[i].addEventListener("click", changeColor);
+            ulList2[i].addEventListener("dblclick", changeColor);
+        }
+
+        // 이벤트 리스너에 작성하는 함수에 인수값을 넣어서 사용하기
+        const p5 = document.querySelector("#p5");
+        const p6 = document.querySelector("#p6");
+        const p7 = document.querySelector("#p7");
+
+        // 함수를 넣어 줄 때 그 이름만 넣어 주거나, 익명 함수로만 작성
+        // 함수의 인수가 필요하다면 익명함수 안에 함수 호출해서 사용
+        p5.addEventListener("click", function(e){
+            printInnerHTML(e,"내용을 바꿉니다");
+        });
+        // 호출해서 쓰는 함수가 하나라면 화살표 함수를 많이 쓴다
+        p6.addEventListener("click",
+            e => printInnerHTML(e,"다시 수정하여 작성합니다"));
+        // p7 addEventListener을 이용하여 
+        // click했을 때, 글자가 수정이 완료되었습니다 수정
+
+        p7.addEventListener("click", e => printInnerHTML(e, "글자가 수정 완료되었습니다"));
+
+        function printInnerHTML(e, string) {
+            e.target.innerHTML = string;
+        }
+    </script>
+</body>
+</html>
