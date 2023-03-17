@@ -1,0 +1,41 @@
+/* 태그의 디자인 */
+*{margin: 0; padding: 0;}
+ul{list-style: none;}
+
+/* imagebox */
+.imagebox{
+    /* margin auto는 block태그가 width값을 가지고 있을 때 사용 */
+    width: 600px;
+    margin: 0 auto;
+}
+
+/* imagebox>box */
+.imagebox>.box{
+    display: flex;
+}
+
+/* imagebox의 img태그(.pic class) */
+.imagebox>.box>li>.pic{
+    width: 200px;
+    height: 200px;
+}
+
+/* lightbox */
+#lightbox{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    text-align: center;
+    padding: 5vh 0;
+    /* 클래스를 통해 block으로 바꿔도 되지만 */
+    /* 하나밖에 없기 때문에 속성으로 직접 접근해서 수정해도 괜찮음 */
+    display: none;
+}
+
+/* lightbox의 이미지 */
+#lightbox>img{
+    /* 이미지 크기를 화면에 맞춰서 크게 출력하기 위해 사진의 가로 세로 중 큰 크기로 출력 */
+    height: 90vh;
+}

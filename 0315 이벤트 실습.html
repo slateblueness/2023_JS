@@ -5,6 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .on{
+            text-decoration: line-through;
+            background-color: lightsteelblue;
+            /* 자바스크립트로 class 이름을 추가할 때 전환 효과 사용 */
+            transition: background-color 0.5s;
+        }
+
+        /* CSS만 사용해서 체크했을 때 디자인 추가 */
+        .list>li>input[type="checkbox"]:checked+span{
+            color: gray;
+            text-decoration: underline wavy;
+            transition: all 0.5s;
+        }
+
+        .img{
+            background-image: url(./img/jellyfish-gdfca8d4e4_640.jpg);
+            background-size: cover;
+            width: 300px;
+            height: 300px;
+        }
+
+        .change-img{
+            background-image: url(./img/festival.jpg);
+        }
+    </style>
 </head>
 <body>
     <!-- input태그와 button을 이용한 이벤트 연습 -->
@@ -16,6 +42,31 @@
     <div id="gugudan">
         <p></p>
     </div>
+
+    <ol>
+        <li id="first_list">
+            <input type="checkbox" name="" id="checkbox">
+            첫 번째 리스트입니다.
+        </li>
+    </ol>
+
+    <ol id="checklist">
+        <li><input type="checkbox">첫 번째</li>
+        <li><input type="checkbox">두 번째</li>
+        <li><input type="checkbox">세 번째</li>
+    </ol>
+
+    <ul class="list">
+        <li><input type="checkbox"><span>첫 번째</span></li>
+        <li><input type="checkbox"><span>두 번째</span></li>
+    </ul>
+
+    <!-- div태그 안에 이미지 넣어서 사용 -->
+    <!-- 이미지를 클릭했을 때 다른 이미지로 변경 -->
+    <!-- CSS 백그라운드 이미지 바꾸기(classList 사용) -->
+    <!-- 1) class img에 원래 이미지 넣기, 2) class change-img에 다른 이미지 넣어서 바꾸기 -->
+    <div id="img" class="img"></div>
+
     <script>
         function gugudanPrint() {
             // 구구단을 출력하기위해 입력받은 숫자값 들고옴
@@ -38,23 +89,57 @@
             }
 
 
-            // ul태그를 만들어서 li생성하여 출력
-            // 1) ul태그 생성 - createElement('ul')
-            // 2) li 태그안에 dan*1이 들어간 태그가 9개 생성 - innerHTML
-            // 3) li 태그로 생성된 요소를 ul태그에 9번 추가
-            // 4) ul 태그도 body 추가 - appenChild
-            let ul = document.createElement('ul');
-            for (let i=1; i<=9; i++) {
-                let li = document.createElement('li');
-                li.innerHTML = `${dan}X${i}=${i*Number(dan)}`;
-                ul.appendChild(li)
-            }
-            // 함수안에서 사용되는 변수는 지역변수
-            // 이벤트 발생 할때마다 함수가 실행될때, 
-            // 동일한 이름으로 계속 사용할 수 있다.
-            let body = document.querySelector("body");
-            document.body.appendChild(ul);
+        // ul태그를 만들어서 li생성하여 출력
+        // 1) ul태그 생성 - createElement('ul')
+        // 2) li 태그안에 dan*1이 들어간 태그가 9개 생성 - innerHTML
+        // 3) li 태그로 생성된 요소를 ul태그에 9번 추가
+        // 4) ul 태그도 body 추가 - appenChild
+        let ul = document.createElement('ul');
+        for (let i=1; i<=9; i++) {
+            let li = document.createElement('li');
+            li.innerHTML = `${dan}X${i}=${i*Number(dan)}`;
+            ul.appendChild(li)
         }
+        // 함수안에서 사용되는 변수는 지역변수
+        // 이벤트 발생 할때마다 함수가 실행될때, 
+        // 동일한 이름으로 계속 사용할 수 있다.
+        let body = document.querySelector("body");
+        document.body.appendChild(ul);
+        }
+
+        // 체크리스트 input태그 클릭했을 때 li태그 색 바꾸기
+        let checkbox = document.querySelector("#checkbox");
+        checkbox.addEventListener("click", check);
+
+        function check(e){
+            // li태그의 색상을 lightgray로 수정
+            // input: checkbox: e.target
+            let li = e.target.parentNode;
+            // e.target의 checked가 true일 때 색상 변경
+            if(e.target.checked == true){
+                li.style.color = "lightgray";
+                // classList 접근, add()함수 사용
+                li.classList.add("on");
+            } else{
+                li.style.color = "black";
+                li.classList.remove("on");
+        }
+        }
+        if (checkbox.checked = true) {checkbox.style.color = "gray"};
+
+        // 체크리스트 li요소의 배열을 들고 와서 동일한 이벤트 추가
+        let checklist = document.querySelectorAll("#checklist>li>input[type='checkbox']");
+        for(let i=0; i<checklist.length; i++){
+            checklist[i].addEventListener("click", check);
+        }
+
+        // img를 클릭했을 때 다른 img로 변경하기
+        let img = document.querySelector(".img");
+        img.addEventListener("click", function(e){
+            // 클릭했을 때 새로운 class 추가
+            // classList.toggle()을 이용하면 클래스 이름을 토글할 수 있다
+            e.target.classList.toggle("change-img");
+        });
     </script>
 </body>
 </html>
