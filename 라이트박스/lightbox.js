@@ -6,12 +6,10 @@
 // 사진을 클릭했을 때
 // 사진이 여러 개이기 때문에 배열로 가지고 옴
 const pics = document.querySelectorAll(".imagebox .pic");
-console.log(pics);
 const lightbox = document.querySelector("#lightbox");
-console.log(lightbox); // 현재 html에서는 보이지 않음
 
-// 사진 하나에 이벤트를 먼저 확인한 후 반복문으로 추가
-for(let i=o; i<pics.length; i++){
+// 사진 하나의 이벤트를 먼저 확인한 후 반복문으로 추가
+for(let i=0; i<pics.length; i++){
     pics[i].addEventListener("click", showLightbox);
 }
 
